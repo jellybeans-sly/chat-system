@@ -16,12 +16,9 @@ function Chat() {
     // pwede natin ipasa yung messages sa baba sa loob ng [] pero kahit di na kasi si firebase
     // may tinatawag na SNAPSHOT
 
-    // inaaccess natin yung firestore, yung lalagyanan ng database
-    // yung messages yan yung database name, orderby may createdAt tayo na column name,
-    // limit dahil sobrang tagal nyan pag nireload natin yung messages na for example 1k, bale ginawa nating 50
     // onSnapshot naman kapag may nabago sa messages natin magrurun sya
     // parameter na snapshot para sa every data sa collection natin
-      db.collection('messages').orderBy('createdAt').limit(50).onSnapshot(snapshot => {
+      db.collection('messages').orderBy('createdAt').limit(500).onSnapshot(snapshot => {
         setMessages(snapshot.docs.map(doc => doc.data()))
       })
   }, [])
@@ -29,7 +26,6 @@ function Chat() {
     <div>
       <SignOut />
       <div className="msgs">
-        {/* bilang may laman na yung messages natin imamap na natin sya */}
         {messages.map(({id, text, photoURL, uid}) => (
           <div>
             {/* yung className natin condition yan pag ako yung nag login class ko sent, pag iba class nyan received */}
